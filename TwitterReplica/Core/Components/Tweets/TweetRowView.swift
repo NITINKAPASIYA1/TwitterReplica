@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TweetRowView: View {
     var body: some View {
-        VStack{
+        
+        VStack(alignment: .leading){
             HStack(alignment: .top, spacing: 12){
                 Circle()
                     .frame(width: 56, height: 56)
@@ -63,16 +64,18 @@ struct TweetRowView: View {
                 Button {
                     
                 } label: {
-                    Image(systemName: "bubble.left")
+                    Image(systemName: "bookmark")
                         .font(.subheadline)
                 }
                 
                 
             }
             .padding()
-            
-            
+            .foregroundStyle(.gray)
+            Divider()
         }
+       
+       
     }
 }
 
