@@ -8,51 +8,21 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var selectedFilter: TweetFilterViewModel = .Tweets
+    @Namespace private var animation
+    
     var body: some View {
         VStack(alignment: .leading){
             headerView
             
             actionButton
             
-            VStack(alignment: .leading,spacing: 4){
-                HStack{
-                    Text("Vanshika Bhati")
-                        .font(.title2).bold()
-                    
-                    Image(systemName: "checkmark.seal.fill")
-                        .foregroundStyle(Color(.systemBlue))
-                }
-                
-                Text("@bhati.vanshika")
-                    .font(.headline)
-                    .foregroundStyle(.gray)
-                
-                Text("Your bio goes here")
-                    .font(.subheadline)
-                    .padding(.vertical)
-                
-                HStack(spacing: 24){
-                    HStack{
-                        Image(systemName: "mappin.and.ellipse")
-                        
-                        Text("Gotham/ Metropolis")
-                           
-                            
-                    }
-                    
-                    HStack{
-                        Image(systemName: "link")
-                        
-                        Text("www.vanshika.com")
-                            
-                        
-                    }
-                }
-                .foregroundStyle(.gray)
-                .font(.caption)
-            }
-            .padding(.horizontal)
+            userInfoDetails
             
+            tweetBar
+            
+            
+            tweetsView
             
             Spacer()
             
@@ -112,5 +82,119 @@ extension ProfileView {
             }
         }
         .padding(.trailing)
+    }
+    
+    var userInfoDetails : some View {
+        
+        VStack(alignment: .leading,spacing: 4){
+            HStack{
+                Text("Vanshika Bhati")
+                    .font(.title2).bold()
+                
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundStyle(Color(.systemBlue))
+            }
+            
+            Text("@bhati.vanshika")
+                .font(.headline)
+                .foregroundStyle(.gray)
+            
+            Text("Your bio goes here")
+                .font(.subheadline)
+                .padding(.vertical)
+            
+            HStack(spacing: 24){
+                HStack{
+                    Image(systemName: "mappin.and.ellipse")
+                    
+                    Text("Gotham/ Metropolis")
+                    
+                    
+                }
+                
+                HStack{
+                    Image(systemName: "link")
+                    
+                    Text("www.vanshika.com")
+                    
+                    
+                }
+            }
+            .foregroundStyle(.gray)
+            .font(.caption)
+            
+            
+            HStack(spacing: 24){
+                HStack(spacing: 4){
+                    Text("21")
+                        .font(.subheadline)
+                        .bold()
+                    
+                    Text("Following")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+                
+                HStack(spacing: 4){
+                    Text("42")
+                        .font(.subheadline)
+                        .bold()
+                    
+                    Text("Followers")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+            }
+            .padding(.vertical)
+            
+        }
+        .padding(.horizontal)
+    }
+    
+    
+    var tweetBar : some View {
+        HStack{
+            ForEach(TweetFilterViewModel.allCases,id:\.rawValue){
+                it in
+                VStack{
+                    Text(it.title)
+                        .font(.subheadline)
+                        .fontWeight(selectedFilter == it ? .bold : .regular)
+                        .foregroundStyle(selectedFilter == it ? .black : .gray)
+                    
+                    if selectedFilter == it {
+                        Capsule()
+                            .foregroundStyle(.blue)
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "filter", in: animation)
+                    }
+                    else {
+                        Capsule()
+                            .foregroundStyle(.clear)
+                            .frame(height: 3)
+                    }
+                    
+                    
+                }
+                .onTapGesture {
+                    withAnimation(.easeInOut){
+                        self.selectedFilter = it
+                    }
+                }
+            }
+        }
+        .overlay(Divider(),alignment: .bottom)
+    }
+    
+    
+    var tweetsView : some View {
+        ScrollView {
+            LazyVStack{
+                ForEach(0..<9 , id : \.self){ _ in
+                    TweetRowView()
+                        .padding()
+                }
+            }
+        }
     }
 }
