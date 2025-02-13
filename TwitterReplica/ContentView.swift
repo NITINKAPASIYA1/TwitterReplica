@@ -13,11 +13,32 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .topLeading){
             MainTabView()
+                .navigationBarHidden(isShowMenu)
+                
+            
+            if isShowMenu {
+                ZStack{
+                    Color.black.opacity(isShowMenu ? 0.25 : 0)
+                }
+                .onTapGesture {
+                    withAnimation (.easeInOut){
+                        isShowMenu = false
+                    }
+                }
+                .ignoresSafeArea()
+            }
+            
+            SideMenuView()
+                .frame(width: 300)
+                .offset(x: isShowMenu ? 0 : -300, y: 0)
+                .background(isShowMenu ? Color.white : Color.clear)
         }
         .toolbar{
             ToolbarItem(placement: .navigationBarLeading){
                 Button {
-                    isShowMenu.toggle()
+                    withAnimation(.easeInOut){
+                        isShowMenu.toggle()
+                    }
                 } label: {
                     Circle()
                         .frame(width: 35, height: 35)
@@ -25,7 +46,9 @@ struct ContentView: View {
 
             }
         }
-        
+        .onAppear{
+            isShowMenu = false
+        }
     }
 }
 

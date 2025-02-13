@@ -69,18 +69,22 @@ struct MainTabView: View {
                 FeedView()
                     .tag(TabBarItem.feed)
                     .navigationTitle("Home")
+                    .navigationBarTitleDisplayMode(.inline)
                 
                 ExploreView()
                     .tag(TabBarItem.search)
                     .navigationTitle("Explore")
+                    .navigationBarTitleDisplayMode(.inline)
                 
                 NotificationsView()
                     .tag(TabBarItem.notifications)
                     .navigationTitle("Notifications")
+                    .navigationBarTitleDisplayMode(.inline)
                 
                 MessagesView()
                     .tag(TabBarItem.messages)
                     .navigationTitle("Messages")
+                    .navigationBarTitleDisplayMode(.inline)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
