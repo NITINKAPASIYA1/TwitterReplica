@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isShowMenu = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack(alignment: .topLeading){
+            MainTabView()
         }
-        .padding()
+        .toolbar{
+            ToolbarItem(placement: .navigationBarLeading){
+                Button {
+                    isShowMenu.toggle()
+                } label: {
+                    Circle()
+                        .frame(width: 35, height: 35)
+                }
+
+            }
+        }
+        
     }
 }
 

@@ -12,14 +12,6 @@ enum TabBarItem: Hashable {
         }
     }
     
-    var title: String {
-        switch self {
-            case .feed: return "Home"
-            case .search: return "Search"
-            case .notifications: return "Notifications"
-            case .messages: return "Messages"
-        }
-    }
 }
 
 // CustomTabBar.swift
@@ -76,15 +68,19 @@ struct MainTabView: View {
             TabView(selection: $selectedTab) {
                 FeedView()
                     .tag(TabBarItem.feed)
+                    .navigationTitle("Home")
                 
                 ExploreView()
                     .tag(TabBarItem.search)
+                    .navigationTitle("Explore")
                 
                 NotificationsView()
                     .tag(TabBarItem.notifications)
+                    .navigationTitle("Notifications")
                 
                 MessagesView()
                     .tag(TabBarItem.messages)
+                    .navigationTitle("Messages")
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
