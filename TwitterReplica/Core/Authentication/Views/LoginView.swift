@@ -39,7 +39,7 @@ struct LoginView: View {
                 
                 CustomTextField(imageName: "envelope", placeholderText: "Email", text: $email)
                 
-                CustomTextField(imageName: "lock", placeholderText: "Password", text: $password)
+                CustomTextField(imageName: "lock", placeholderText: "Password",isSecureField: true , text: $password)
                 
             }
             .padding(.horizontal,32)
