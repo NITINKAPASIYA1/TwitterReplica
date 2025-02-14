@@ -22,7 +22,7 @@ struct CustomTextField: View {
                     .frame(width: 20, height: 20)
                     .foregroundColor(Color(.darkGray))
                 
-                if let isSecureField {
+                if isSecureField ?? false {
                     SecureField(placeholderText, text: $text)
                 }else{
                     TextField(placeholderText, text: $text)
