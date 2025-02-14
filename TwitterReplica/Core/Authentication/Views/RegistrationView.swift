@@ -13,6 +13,7 @@ struct RegistrationView: View {
     @State private var username: String = ""
     @State private var fullname: String = ""
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var viewModel: AuthViewModel
     
     
     var body: some View {
@@ -56,7 +57,7 @@ struct RegistrationView: View {
         
             
             Button {
-                print("sign in here")
+                viewModel.registerUser(withEmail: email, password: password,fullname: fullname ,username: username)
             } label: {
                 Text("Sign Up")
                     .font(.headline)
