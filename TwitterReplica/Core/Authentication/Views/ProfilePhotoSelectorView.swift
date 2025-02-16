@@ -9,7 +9,26 @@ import SwiftUI
 
 struct ProfilePhotoSelectorView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            AuthHeaderView(text: "Setup Account", text2: "Add a Profile Photo")
+            
+            Button {
+                print("Pick Image here")
+            } label: {
+                Image(systemName: "photo.badge.plus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .padding(.top,44)
+            }
+            
+            Spacer()
+
+            
+            
+        
+        }
+        .ignoresSafeArea()
     }
 }
 

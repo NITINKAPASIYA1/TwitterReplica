@@ -14,8 +14,6 @@ struct LoginView: View {
     
     var body: some View {
         VStack{
-            
-            
             VStack(alignment: .leading){
                 HStack{Spacer()}
                 

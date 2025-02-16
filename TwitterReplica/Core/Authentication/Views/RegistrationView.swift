@@ -19,26 +19,9 @@ struct RegistrationView: View {
     var body: some View {
         VStack{
             
+            NavigationLink(destination: ProfilePhotoSelectorView(),isActive: $viewModel.didAuthenticateUser, label: { })
             
-            VStack(alignment: .leading){
-                HStack{Spacer()}
-                
-                Text("Get Started")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                
-                Text("Create your Account")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                
-            }
-            .frame(height: 260)
-            .padding(.leading)
-            .background(Color(.systemBlue))
-            .foregroundStyle(.white)
-            .clipShape(RoundedShape(corners: [.bottomRight]))
-            
-            
+            AuthHeaderView(text: "Get Started", text2: "Create your Account")
             VStack(spacing: 50){
                 
                 CustomTextField(imageName: "envelope", placeholderText: "Email", text: $email)
