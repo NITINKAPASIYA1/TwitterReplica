@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @ObservedObject var viewModel = ExploreViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack{
                 ScrollView{
                     LazyVStack{
-                        ForEach(0..<20,id:\.self){_ in
+                        ForEach(viewModel.users, id:\.self){user in
                             NavigationLink{
-//                                ProfileView(user:User(username: "hello", fullname: "hello", profileImageUrl: "hello", email: "email#gmail.com"))
+                                ProfileView(user: user)
                             }label:{
-                                UserRowView()
+                                UserRowView(user: user)
                             }
                         }
                     }
