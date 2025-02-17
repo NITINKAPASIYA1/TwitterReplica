@@ -5,12 +5,18 @@
 //  Created by Nitin on 13/02/25.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct ProfileView: View {
     @State private var selectedFilter: TweetFilterViewModel = .Tweets
     @Namespace private var animation
     @Environment(\.presentationMode) var mode
+    private let user: User
+    
+    init(user: User) {
+        self.user = user
+    }
     
     var body: some View {
         VStack(alignment: .leading){
@@ -28,11 +34,12 @@ struct ProfileView: View {
             Spacer()
             
         }
+        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(user: User(username: "hello", fullname: "hello", profileImageUrl: "hello", email: "email#gmail.com"))
 }
 
 extension ProfileView {
@@ -50,11 +57,14 @@ extension ProfileView {
                         .resizable()
                         .frame(width: 20, height: 16)
                         .foregroundColor(.white)
-                        .offset(x: 16, y: 12)
+                        .offset(x: 16, y: -4)
                 }
                 
                 
-                Circle()
+                KFImage(URL(string: user.profileImageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
                     .frame(width: 72, height: 72)
                     .offset(x: 16, y: 24)
             }
@@ -89,14 +99,14 @@ extension ProfileView {
         
         VStack(alignment: .leading,spacing: 4){
             HStack{
-                Text("Vanshika Bhati")
+                Text(user.fullname)
                     .font(.title2).bold()
                 
                 Image(systemName: "checkmark.seal.fill")
                     .foregroundStyle(Color(.systemBlue))
             }
             
-            Text("@bhati.vanshika")
+            Text(user.username)
                 .font(.headline)
                 .foregroundStyle(.gray)
             

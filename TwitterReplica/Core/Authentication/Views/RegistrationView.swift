@@ -1,10 +1,3 @@
-//
-//  LoginView.swift
-//  TwitterReplica
-//
-//  Created by Nitin on 14/02/25.
-//
-
 import SwiftUI
 
 struct RegistrationView: View {
@@ -15,61 +8,61 @@ struct RegistrationView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewModel: AuthViewModel
     
-    
     var body: some View {
-        VStack{
-            
-            NavigationLink(destination: ProfilePhotoSelectorView(),isActive: $viewModel.didAuthenticateUser, label: { })
-            
-            AuthHeaderView(text: "Get Started", text2: "Create your Account")
-            VStack(spacing: 50){
+        NavigationView {
+            VStack {
+                NavigationLink(
+                    destination: ProfilePhotoSelectorView(),
+                    isActive: $viewModel.didAuthenticateUser,
+                    label: { EmptyView() }
+                )
                 
-                CustomTextField(imageName: "envelope", placeholderText: "Email", text: $email)
+                AuthHeaderView(text: "Get Started", text2: "Create your Account")
                 
-                CustomTextField(imageName: "person", placeholderText: "Username", text: $username)
-                
-                CustomTextField(imageName: "envelope", placeholderText: "Full Name", text: $fullname)
-                
-                CustomTextField(imageName: "lock", placeholderText: "Password",isSecureField: true , text: $password)
-                
-            }
-            .padding(.horizontal,32)
-            .padding(.top,44)
-            .padding(.bottom,30)
-            
-        
-            
-            Button {
-                viewModel.registerUser(withEmail: email, password: password,fullname: fullname ,username: username)
-            } label: {
-                Text("Sign Up")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 340, height: 50)
-                    .background(Color(.systemBlue))
-                    .clipShape(Capsule())
-                    .padding()
-            }
-            .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
-            
-            Spacer()
-            
-            Button{
-                presentationMode.wrappedValue.dismiss()
-            }label: {
-                HStack{
-                    Text("Already have an account?")
-                        .font(.footnote)
-                    
-                    Text("Sign In")
-                        .font(.footnote)
-                        .fontWeight(.semibold)
+                VStack(spacing: 50) {
+                    CustomTextField(imageName: "envelope", placeholderText: "Email", text: $email)
+                    CustomTextField(imageName: "person", placeholderText: "Username", text: $username)
+                    CustomTextField(imageName: "envelope", placeholderText: "Full Name", text: $fullname)
+                    CustomTextField(imageName: "lock", placeholderText: "Password", isSecureField: true, text: $password)
                 }
+                .padding(.horizontal, 32)
+                .padding(.top, 44)
+                .padding(.bottom, 30)
+                
+                Button {
+                    viewModel.registerUser(withEmail: email,
+                                           password: password,
+                                           fullname: fullname,
+                                           username: username)
+                } label: {
+                    Text("Sign Up")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(width: 340, height: 50)
+                        .background(Color(.systemBlue))
+                        .clipShape(Capsule())
+                        .padding()
+                }
+                .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
+                
+                Spacer()
+                
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    HStack {
+                        Text("Already have an account?")
+                            .font(.footnote)
+                        Text("Sign In")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                    }
+                }
+                .padding(.bottom, 32)
+                .foregroundColor(Color(.systemBlue))
             }
-            .padding(.bottom,32)
-            .foregroundColor(Color(.systemBlue))
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
         .navigationBarHidden(true)
     }
 }

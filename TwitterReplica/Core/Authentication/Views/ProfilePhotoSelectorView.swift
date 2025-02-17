@@ -68,5 +68,5 @@ struct ProfilePhotoSelectorView: View {
 }
 
 #Preview {
-    ProfilePhotoSelectorView( )
+    ProfilePhotoSelectorView()
 }
