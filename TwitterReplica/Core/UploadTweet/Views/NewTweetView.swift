@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NewTweetView: View {
     @State private var caption = ""
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var viewModel : AuthViewModel
     
     var body: some View {
         VStack{
@@ -38,11 +40,17 @@ struct NewTweetView: View {
             .padding()
             
             HStack(alignment: .top){
-                Circle().frame(width: 64, height: 64)
+                if let user = viewModel.currentUser {
+                    KFImage(URL(string: user.profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: 64, height: 64)
+                }
                 
                 TextArea(text: $caption, "What are you thinking?")
-
-                    
+                
+                
             }
             .padding()
         }
@@ -51,4 +59,5 @@ struct NewTweetView: View {
 
 #Preview {
     NewTweetView()
+        .environmentObject(AuthViewModel())
 }

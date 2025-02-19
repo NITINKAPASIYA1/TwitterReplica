@@ -30,7 +30,6 @@ struct UserService {
             .collection("users")
             .getDocuments { snapshot, _  in
                 guard let documents = snapshot?.documents else { return }
-                
                 let users = documents.compactMap { try? $0.data(as: User.self) }
                 completion(users)
             }
