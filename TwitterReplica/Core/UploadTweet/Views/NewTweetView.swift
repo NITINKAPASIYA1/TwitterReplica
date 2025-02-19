@@ -12,6 +12,8 @@ struct NewTweetView: View {
     @State private var caption = ""
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewModel : AuthViewModel
+    @ObservedObject var tweetViewModel = UploadTweetViewModel()
+
     
     var body: some View {
         VStack{
@@ -26,7 +28,7 @@ struct NewTweetView: View {
                 Spacer()
                 
                 Button {
-                    
+                    tweetViewModel.uploadTweet(withcaption:caption)
                 } label: {
                     Text("Tweet")
                         .bold()
@@ -53,6 +55,11 @@ struct NewTweetView: View {
                 
             }
             .padding()
+        }
+        .onReceive(tweetViewModel.$didUploadTweet) { success in
+            if success {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 }

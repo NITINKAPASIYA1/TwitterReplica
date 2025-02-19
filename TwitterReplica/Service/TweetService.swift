@@ -6,15 +6,42 @@
 //
 
 import Firebase
+import FirebaseAuth
 
 struct TweetService {
     
     
-    func uploadTweet(){
+    func uploadTweet(completion:@escaping(Bool) -> Void ,caption:String){
+        guard let uid  = Auth.auth().currentUser?.uid else {return}
         
-            
+        let data = ["uid":uid,
+                    "caption":caption,
+                    "likes":0,
+                    "timestamp":Timestamp(date: Date())] as [String : Any]
+        
+        Firestore.firestore().collection("tweets")
+            .document().setData(data) { error in
+                if let error  {
+                    print("DEBUG: Error uploading tweet \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+                print("DEBUG: Tweet uploaded successfully")
+            }
     }
     
-    
+    func fetchTweets(completion: @escaping([Tweet]) -> Void){
+        Firestore.firestore().collection("tweets")
+            .order(by: "timestamp",descending: false)
+            .getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else {return}
+            let tweets = documents.compactMap ({ try? $0.data(as: Tweet.self)})
+            print(tweets)
+            completion(tweets)
+            }
+        
+        
+    }
 }
 
