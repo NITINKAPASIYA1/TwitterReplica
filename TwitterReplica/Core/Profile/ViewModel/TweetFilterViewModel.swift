@@ -9,15 +9,15 @@ import Foundation
 
 
 enum TweetFilterViewModel : Int, CaseIterable {
-    case Tweets, Replies, Likes
+    case tweets, replies, likes
     
     var title: String {
         switch self {
-            case .Tweets:
+            case .tweets:
                 return "Tweets"
-            case .Replies:
+            case .replies:
                 return "Replies"
-            case .Likes:
+            case .likes:
                 return "Likes"
         }
     }
