@@ -54,12 +54,13 @@ struct TabBarButton: View {
                    
                 
             }
-            .foregroundStyle(selectedTab == tab ? .blue : .gray)
+            .foregroundStyle(selectedTab == tab ? .green : .gray)
         }
     }
 }
 
 // MainTabView.swift
+
 struct MainTabView: View {
     @State private var selectedTab: TabBarItem = .feed
     
