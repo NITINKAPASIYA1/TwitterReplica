@@ -68,5 +68,5 @@ struct RegistrationView: View {
 }
 
 #Preview {
-    RegistrationView()
+    RegistrationView().environmentObject(AuthViewModel())
 }
