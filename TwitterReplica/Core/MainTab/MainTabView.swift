@@ -54,7 +54,7 @@ struct TabBarButton: View {
                    
                 
             }
-            .foregroundStyle(selectedTab == tab ? .green : .gray)
+            .foregroundStyle(selectedTab == tab ? .black : .gray)
         }
     }
 }
