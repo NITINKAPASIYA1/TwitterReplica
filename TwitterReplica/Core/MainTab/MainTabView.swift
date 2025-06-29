@@ -49,7 +49,6 @@ struct TabBarButton: View {
         } label: {
             VStack(spacing: 4) {
                 Image(systemName: tab.iconName)
-                    .symbolEffect(.bounce, value: selectedTab == tab)
                     .font(.system(size: 20))
                    
                 
